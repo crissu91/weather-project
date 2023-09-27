@@ -20,13 +20,19 @@ function App() {
       const message = query.q ? query.q : " current location.";
 
       toast.info("Fetching weather for " + message);
-
-      await getFormattedWeatherData({ ...query, units }).then((data) => {
-        toast.success(
-          `Successfully fetched weather for ${data.name}, ${data.country}`
-        );
-        setWeather(data);
-      });
+      try {
+        const data = await getFormattedWeatherData({ ...query, units });
+        if (data) {
+          toast.success(
+            `Successfully fetched weather for ${data.name}, ${data.country}`
+          );
+          setWeather(data);
+        } else {
+          toast.error("Failed to fetch weather data. Please try again.");
+        }
+      } catch (error) {
+        toast.error("An error occurred while fetching weather data.");
+      }
     };
     fetchWeather();
   }, [query, units]);
