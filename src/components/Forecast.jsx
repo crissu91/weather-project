@@ -9,7 +9,7 @@ function Forecast({title, items}) {
                   {title}
               </p>
           </div>
-          <hr className='my-2'></hr>
+          <hr className="my-2"></hr>
           <div className='flex flex-row items-center justify-between text-white'>
 
           {items.map((item, i) => 
